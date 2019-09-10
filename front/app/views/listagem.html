@@ -1,0 +1,56 @@
+<form ng-controller="ListagemController" ng-init="inicializar()">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpf" ng-model="vm.cpf" ui-br-cpf-mask required>
+                </div>
+            </div>
+            <div class="col-md-5" style="padding-top: 2em">
+                <button type="button" class="btn btn-outline-success" id="btPesquisar" ng-click="consultar(vm.cpf)">Pesquisar</button>
+                <button type="button" class="btn btn-outline-primary" id="btCadastrar" ng-click="toProposta()">Cadastrar Proposta</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-1 col-md-10" style="padding-top: 2em">
+            <table class="table table-hover table-striped text-uppercase">
+                <thead>
+                <tr>
+                    <th scope="col"><strong>NOME</strong></th>
+                    <th scope="col"><strong>IDADE</strong></th>
+                    <th scope="col"><strong>SEXO</strong></th>
+                    <th scope="col"><strong>ESTADO CIVIL</strong></th>
+                    <th scope="col"><strong>ESTADO</strong></th>
+                    <th scope="col"><strong>DEPENDENTES</strong></th>
+                    <th scope="col"><strong>RENDA R$</strong></th>
+                    <th scope="col"><strong>RESULTADO ANÁLISE</strong></th>
+                    <th scope="col"><strong>LIMITE</strong></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr  scope="row"ng-repeat="analise in vm.analises" ng-show="vm.analises">
+                    <td class="center" >{{analise.proposta.nome}}</td>
+                    <td class="center">{{analise.proposta.idade}}</td>
+                    <td class="center">{{analise.proposta.sexo}}</td>
+                    <td class="center">{{analise.proposta.estadoCivil}}</td>
+                    <td class="center">{{analise.proposta.estado}}</td>
+                    <td class="center">{{analise.proposta.dependentes}}</td>
+                    <td class="center">{{analise.proposta.renda | currency}}</td>
+                    <td class="center">{{analise.resultadoAnalise}}</td>
+                    <td class="center">{{vm.limties[analise.limite]}}</td>
+                    <!--<td class="center">{{vm.tiposAnexos[anexo.tipoAnexo]}}</td>-->
+                </tr>
+                <tr ng-show="!vm.analises.length">
+                    <td class="center text-center" colspan="9">Nenhuma análise cadastrada!</td>
+                </tr>
+                </tbody>
+
+            </table>
+            </div>
+        </div>
+    </div>
+</form>
