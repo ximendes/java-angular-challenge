@@ -32,19 +32,19 @@
                 </thead>
 
                 <tbody>
-                <tr  scope="row"ng-repeat="analise in vm.analises" ng-show="vm.analises">
-                    <td class="center" >{{analise.proposta.nome}}</td>
-                    <td class="center">{{analise.proposta.idade}}</td>
-                    <td class="center">{{analise.proposta.sexo}}</td>
-                    <td class="center">{{analise.proposta.estadoCivil}}</td>
-                    <td class="center">{{analise.proposta.estado}}</td>
-                    <td class="center">{{analise.proposta.dependentes}}</td>
-                    <td class="center">{{analise.proposta.renda | currency}}</td>
-                    <td class="center">{{analise.resultadoAnalise}}</td>
-                    <td class="center">{{vm.limties[analise.limite]}}</td>
-                    <!--<td class="center">{{vm.tiposAnexos[anexo.tipoAnexo]}}</td>-->
+                <tr  scope="row"ng-repeat="proposta in vm.propostas" ng-show="vm.propostas">
+                    <td class="center" >{{proposta.nome}}</td>
+                    <td class="center">{{proposta.idade}}</td>
+                    <td class="center">{{proposta.sexo}}</td>
+                    <td class="center">{{proposta.estadoCivil}}</td>
+                    <td class="center">{{proposta.estado}}</td>
+                    <td class="center">{{proposta.dependentes}}</td>
+                    <td class="center">{{proposta.renda | currency}}</td>
+                    <td class="center">{{proposta.statusProposta}}</td>
+                    <td class="center">TESTE</td>
+                    <td><button type="button" class="btn btn-default" id="btSolicitarAvaliacao" ng-click="toProposta()">Avaliação</button></td>
                 </tr>
-                <tr ng-show="!vm.analises.length">
+                <tr ng-show="!vm.propostas.length">
                     <td class="center text-center" colspan="9">Nenhuma análise cadastrada!</td>
                 </tr>
                 </tbody>

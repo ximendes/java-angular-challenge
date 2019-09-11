@@ -24,20 +24,27 @@
             </div>
             <div class="col-md-3">
                 <label>Sexo</label>
-                <select class="form-control" ng-model="vm.proposta.sexo"
-                        ng-options="chave as descri for (chave, descri) in vm.sexos" required></select>
+                <select class="form-control" ng-model="vm.proposta.sexo" required>
+                    <option value="MASCULINO" label="Masculino">Masculino</option>
+                    <option value="FEMININO" label="Feminino">Feminino</option>
+                </select>
             </div>
             <div class="col-md-3">
                 <label>Estado Civil</label>
 
-                <select class="form-control" ng-model="vm.proposta.estadoCivil"
-                        ng-options="chave as descri for (chave, descri) in vm.estadosCivis" required></select>
+                <select class="form-control" ng-model="vm.proposta.estadoCivil" required>
+                    <option value="SOLTEIRO" label="Solteiro">Solteiro</option>
+                    <option value="CASADO" label="Casado">Casado</option>
+                    <option value="DIVORCIADO" label="Divorciado">Divorciado</option>
+                    <option value="VIUVA" label="Viuva">Viúva</option>
+                </select>
             </div>
 
             <div class="col-md-3">
                 <label>Estado</label>
-                <select class="form-control" ng-model="vm.proposta.estado"
-                        ng-options="uf as descri for (uf, descri) in vm.estados" required></select>
+                <select class="form-control" ng-model="vm.proposta.estado" required>
+                    <option value="SC" label="SC">Santa Catarina</option>
+                </select>
             </div>
 
             <div class="col-md-3">
