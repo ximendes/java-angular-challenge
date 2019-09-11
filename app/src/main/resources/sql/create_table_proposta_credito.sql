@@ -9,5 +9,6 @@ CREATE TABLE public.proposta_credito(
   sexo varchar(255)  NULL,
   estadoCivil varchar(255)  NULL,
   statusProposta varchar(255)  NULL,
+  descricaoLimite varchar(255)  NULL,
   constraint proposta_credito_pk primary key (id)
 );
