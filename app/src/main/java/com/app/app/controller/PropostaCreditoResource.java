@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/proposta")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@CrossOrigin(origins = "http://localhost:8000")
 public class PropostaCreditoResource {
 
     private final PropostaCreditoService service;
