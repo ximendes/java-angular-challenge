@@ -4,6 +4,7 @@ import com.app.app.model.dto.PropostaCreditoDTO;
 import com.app.app.model.enums.EstadoCivil;
 import com.app.app.model.enums.Sexo;
 import com.app.app.model.enums.StatusProposta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,6 +47,11 @@ public class PropostaCredito implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusProposta statusProposta;
 
+    private String descricaoStatus;
+
+    private BigDecimal limitePreAprovado;
+
+
     public PropostaCreditoDTO toDTO() {
         return PropostaCreditoDTO.builder()
                                 .id(this.id)
@@ -58,6 +64,13 @@ public class PropostaCredito implements Serializable {
                                 .sexo(this.sexo)
                                 .estadoCivil(this.estadoCivil)
                                 .statusProposta(this.statusProposta)
+                                .limitePreAprovado(this.limitePreAprovado)
+                                .descricaoStatus(this.descricaoStatus)
                                 .build();
+    }
+
+    @JsonIgnore
+    public void aprovarProposta(){
+        this.statusProposta = StatusProposta.APROVADO;
     }
 }

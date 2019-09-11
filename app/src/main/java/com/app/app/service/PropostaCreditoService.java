@@ -29,5 +29,11 @@ public class PropostaCreditoService {
     public List<PropostaCreditoDTO> findAll(){
         return repository.findAll().stream().map(PropostaCredito::toDTO).collect(Collectors.toList());
     }
+
+    public PropostaCreditoDTO avaliar(Long idProposta){
+        PropostaCredito proposta = repository.findById(idProposta).orElse(null);
+        PropostaCredito propostaAvaliada = new AvaliarLimiteCredito(proposta).avaliar();
+        return this.save(propostaAvaliada.toDTO());
+    }
 }
 

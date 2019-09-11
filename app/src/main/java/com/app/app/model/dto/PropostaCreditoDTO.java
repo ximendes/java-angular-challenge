@@ -33,6 +33,8 @@ public class PropostaCreditoDTO implements Serializable {
     private Sexo sexo;
     private EstadoCivil estadoCivil;
     private StatusProposta statusProposta;
+    private String descricaoStatus;
+    private BigDecimal limitePreAprovado;
 
     public PropostaCredito toEntity(){
         return PropostaCredito.builder()
@@ -46,6 +48,13 @@ public class PropostaCreditoDTO implements Serializable {
                             .sexo(this.sexo)
                             .estadoCivil(this.estadoCivil)
                             .statusProposta(this.statusProposta)
+                            .limitePreAprovado(this.limitePreAprovado)
+                            .descricaoStatus(this.descricaoStatus)
                             .build();
+    }
+
+
+    public void pendenteAprovacao(){
+        this.statusProposta = StatusProposta.PENDENTE_APROVACAO;
     }
 }

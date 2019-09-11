@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/proposta")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@CrossOrigin(origins = "http://localhost:8000")
 public class PropostaCreditoResource {
 
     private final PropostaCreditoService service;
@@ -18,8 +21,9 @@ public class PropostaCreditoResource {
     @PostMapping
     @ApiOperation(value = "Cadastrar uma proposta de crédito", response = PropostaCreditoDTO.class)
     public ResponseEntity<PropostaCreditoDTO> save(@RequestBody PropostaCreditoDTO proposta){
-        PropostaCreditoDTO order = service.save(proposta);
-        return ResponseEntity.ok(order);
+        proposta.pendenteAprovacao();
+        PropostaCreditoDTO propostaSave = service.save(proposta);
+        return ResponseEntity.ok(propostaSave);
     }
 
     @GetMapping("/find/{id}")
@@ -29,9 +33,15 @@ public class PropostaCreditoResource {
         return ResponseEntity.ok(order);
     }
 
-    @PostMapping("/avaliar/{idProposta}")
-    public ResponseEntity.BodyBuilder avaliar(@PathVariable Long idProposta) {
-        return ResponseEntity.ok();
+    @GetMapping("/findAll")
+    @ApiOperation(value = "Buscar todas as proposta de crédito por id", response = PropostaCreditoDTO.class)
+    public ResponseEntity<List<PropostaCreditoDTO>> findAll(){
+        return ResponseEntity.ok(service.findAll());
+    }
 
+    @PostMapping("/avaliar")
+    public ResponseEntity<PropostaCreditoDTO> avaliar(@RequestBody Long idProposta) {
+        PropostaCreditoDTO avaliar = service.avaliar(idProposta);
+        return ResponseEntity.ok(avaliar);
     }
 }
