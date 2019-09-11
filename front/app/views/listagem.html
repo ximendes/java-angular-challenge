@@ -18,37 +18,36 @@
             <div class="offset-1 col-md-10" style="padding-top: 2em">
             <table class="table table-hover table-striped text-uppercase">
                 <thead>
-                <tr>
-                    <th scope="col"><strong>NOME</strong></th>
-                    <th scope="col"><strong>IDADE</strong></th>
-                    <th scope="col"><strong>SEXO</strong></th>
-                    <th scope="col"><strong>ESTADO CIVIL</strong></th>
-                    <th scope="col"><strong>ESTADO</strong></th>
-                    <th scope="col"><strong>DEPENDENTES</strong></th>
-                    <th scope="col"><strong>RENDA R$</strong></th>
-                    <th scope="col"><strong>RESULTADO ANÁLISE</strong></th>
-                    <th scope="col"><strong>LIMITE</strong></th>
-                </tr>
+                    <tr>
+                        <th scope="col"><strong>NOME</strong></th>
+                        <th scope="col"><strong>IDADE</strong></th>
+                        <th scope="col"><strong>SEXO</strong></th>
+                        <th scope="col"><strong>ESTADO CIVIL</strong></th>
+                        <th scope="col"><strong>ESTADO</strong></th>
+                        <th scope="col"><strong>DEPENDENTES</strong></th>
+                        <th scope="col"><strong>RENDA R$</strong></th>
+                        <th scope="col"><strong>RESULTADO ANÁLISE</strong></th>
+                        <th scope="col"><strong>LIMITE</strong></th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                <tr  scope="row"ng-repeat="proposta in vm.propostas" ng-show="vm.propostas">
-                    <td class="center" >{{proposta.nome}}</td>
-                    <td class="center">{{proposta.idade}}</td>
-                    <td class="center">{{proposta.sexo}}</td>
-                    <td class="center">{{proposta.estadoCivil}}</td>
-                    <td class="center">{{proposta.estado}}</td>
-                    <td class="center">{{proposta.dependentes}}</td>
-                    <td class="center">{{proposta.renda | currency}}</td>
-                    <td class="center">{{proposta.statusProposta}}</td>
-                    <td class="center">TESTE</td>
-                    <td><button type="button" class="btn btn-default" id="btSolicitarAvaliacao" ng-click="toProposta()">Avaliação</button></td>
-                </tr>
-                <tr ng-show="!vm.propostas.length">
-                    <td class="center text-center" colspan="9">Nenhuma análise cadastrada!</td>
-                </tr>
+                    <tr  scope="row"ng-repeat="proposta in vm.propostas" ng-show="vm.propostas">
+                        <td class="center" >{{proposta.nome}}</td>
+                        <td class="center">{{proposta.idade}}</td>
+                        <td class="center">{{proposta.sexo}}</td>
+                        <td class="center">{{proposta.estadoCivil}}</td>
+                        <td class="center">{{proposta.estado}}</td>
+                        <td class="center">{{proposta.dependentes}}</td>
+                        <td class="center">{{proposta.renda | currency}}</td>
+                        <td class="center">{{proposta.statusProposta}}</td>
+                        <td class="center">{{proposta.descricaoLimite}}</td>
+                        <td><button type="button" class="btn btn-default" id="btSolicitarAvaliacao" ng-click="avaliarProposta(proposta.id)">Avaliar</button></td>
+                    </tr>
+                    <tr ng-show="!vm.propostas.length">
+                        <td class="center text-center" colspan="9">Nenhuma análise cadastrada!</td>
+                    </tr>
                 </tbody>
-
             </table>
             </div>
         </div>

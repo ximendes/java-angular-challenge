@@ -7,12 +7,41 @@ angular.module('app.listagem', ['ngRoute']).controller('ListagemController', ['$
         // scope.consultarTodos();
     };
 
-
     scope.avaliarProposta = (idProposta) => {
         let url = urlBase + "/avaliar";
         http.post(url, idProposta).then((retorno) => {
-            ModalDemoCtrl.open(retorno);
+            scope.inicializar();
+            openModal(retorno.data)
         });
+    };
+
+    scope.toProposta = () => location.path('/proposta');
+
+    function openModal(retorno){
+        var element = angular.element(templateModal(retorno));
+        element.modal({
+            backdrop: 'static',
+            keyboard: true,
+        });
+    }
+
+    function templateModal(retorno){
+        return `<div class="modal fade" tabindex="-1" role="dialog" id="my_modal_popup">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Resultado Avaliação de Crédito</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Resultado Análise : ${retorno.statusProposta}</p>
+                                <p>Limite: ${retorno.descricaoStatus}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
     }
 
     // scope.consultarCpf = (cpf) => {
@@ -31,11 +60,5 @@ angular.module('app.listagem', ['ngRoute']).controller('ListagemController', ['$
     // };
     //
     // scope.toProposta = () => window.location.href = '/#!/cadastro';
-    scope.toProposta = () => location.path('/proposta');
-    //
-    // scope.consultarTodos = () => http.get(urlBase).then((retorno) => scope.vm.analises = retorno.data);
-
-
-
 
 }]);
