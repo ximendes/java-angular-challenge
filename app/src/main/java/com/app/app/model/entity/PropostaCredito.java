@@ -47,9 +47,7 @@ public class PropostaCredito implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusProposta statusProposta;
 
-    private String descricaoStatus;
-
-    private BigDecimal limitePreAprovado;
+    private String descricaoLimite;
 
 
     public PropostaCreditoDTO toDTO() {
@@ -64,13 +62,35 @@ public class PropostaCredito implements Serializable {
                                 .sexo(this.sexo)
                                 .estadoCivil(this.estadoCivil)
                                 .statusProposta(this.statusProposta)
-                                .limitePreAprovado(this.limitePreAprovado)
-                                .descricaoStatus(this.descricaoStatus)
+                                .descricaoLimite(this.descricaoLimite)
                                 .build();
     }
 
     @JsonIgnore
-    public void aprovarProposta(){
+    public void aprovar(){
         this.statusProposta = StatusProposta.APROVADO;
+    }
+
+    @JsonIgnore
+    public void negar(){
+        this.statusProposta = StatusProposta.NEGADO;
+    }
+
+    @JsonIgnore
+    public boolean isDivorciadoOuViuva(){
+        return EstadoCivil.DIVORCIADO.equals(this.estadoCivil) ||
+               EstadoCivil.VIUVA.equals(this.estadoCivil);
+    }
+
+    public BigDecimal getQuaretaPorcentoRenda(){
+        return this.renda.multiply(BigDecimal.valueOf(40)).divide(BigDecimal.valueOf(100));
+    }
+
+    public boolean isRendaBaixa(){
+        return BigDecimal.valueOf(500.00).compareTo(this.renda) >= 0;
+    }
+
+    public boolean isRendaAte3000(){
+        return BigDecimal.valueOf(2500.00).compareTo(this.renda) >= 0;
     }
 }

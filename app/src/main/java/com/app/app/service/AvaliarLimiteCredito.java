@@ -1,19 +1,30 @@
 package com.app.app.service;
 
 import com.app.app.model.entity.PropostaCredito;
+import com.app.app.service.avaliacao.*;
 import lombok.AllArgsConstructor;
-
-import java.math.BigDecimal;
 
 @AllArgsConstructor
 public class AvaliarLimiteCredito {
 
-    private PropostaCredito propostaCredito;
+    private PropostaCredito proposta;
 
     public PropostaCredito avaliar(){
-        propostaCredito.setLimitePreAprovado(new BigDecimal(10000.00));
-        propostaCredito.aprovarProposta();
-        propostaCredito.setDescricaoStatus("Entre 500 - 1000");
-        return propostaCredito;
+        Avaliacao rendaBaixa = new ReprovaRendaBaixa();
+        Avaliacao politicaCredito = new ReprovaPoliticaCredito();
+        Avaliacao aprovaAte500 = new AprovaAte500();
+        Avaliacao aprovaAte1000 = new AprovaAte1000();
+        Avaliacao aprovaAte1500 = new AprovaAte1500();
+        Avaliacao aprovaAte2000 = new AprovaAte2000();
+        Avaliacao aprovaSuperior2000 = new AprovaSuperior2000();
+
+        rendaBaixa.setProximo(politicaCredito);
+        politicaCredito.setProximo(aprovaAte500);
+        aprovaAte500.setProximo(aprovaAte1000);
+//        aprovaAte1000.setProximo(aprovaAte1500);
+//        aprovaAte1500.setProximo(aprovaAte2000);
+//        aprovaAte2000.setProximo(aprovaSuperior2000);
+
+        return rendaBaixa.avalia(proposta);
     }
 }

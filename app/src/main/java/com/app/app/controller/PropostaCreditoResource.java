@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -34,12 +33,13 @@ public class PropostaCreditoResource {
     }
 
     @GetMapping("/findAll")
-    @ApiOperation(value = "Buscar todas as proposta de crédito por id", response = PropostaCreditoDTO.class)
+    @ApiOperation(value = "Buscar todas as proposta de crédito", response = PropostaCreditoDTO.class)
     public ResponseEntity<List<PropostaCreditoDTO>> findAll(){
         return ResponseEntity.ok(service.findAll());
     }
 
     @PostMapping("/avaliar")
+    @ApiOperation(value = "Avaliar proposta de crédito")
     public ResponseEntity<PropostaCreditoDTO> avaliar(@RequestBody Long idProposta) {
         PropostaCreditoDTO avaliar = service.avaliar(idProposta);
         return ResponseEntity.ok(avaliar);

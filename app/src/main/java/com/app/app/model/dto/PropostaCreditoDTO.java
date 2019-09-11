@@ -6,16 +6,8 @@ import com.app.app.model.enums.Sexo;
 import com.app.app.model.enums.StatusProposta;
 import lombok.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -33,8 +25,7 @@ public class PropostaCreditoDTO implements Serializable {
     private Sexo sexo;
     private EstadoCivil estadoCivil;
     private StatusProposta statusProposta;
-    private String descricaoStatus;
-    private BigDecimal limitePreAprovado;
+    private String descricaoLimite;
 
     public PropostaCredito toEntity(){
         return PropostaCredito.builder()
@@ -48,8 +39,7 @@ public class PropostaCreditoDTO implements Serializable {
                             .sexo(this.sexo)
                             .estadoCivil(this.estadoCivil)
                             .statusProposta(this.statusProposta)
-                            .limitePreAprovado(this.limitePreAprovado)
-                            .descricaoStatus(this.descricaoStatus)
+                            .descricaoLimite(this.descricaoLimite)
                             .build();
     }
 
