@@ -8,13 +8,13 @@ public class ReprovaRendaBaixa implements  Avaliacao{
 
     @Override
     public PropostaCredito avalia(PropostaCredito proposta) {
-        if(proposta.isRendaBaixa()){
-            proposta.negar();
-            proposta.setDescricaoLimite("renda baixa");
-            return proposta;
-        }else{
-            return proxima.avalia(proposta);
-        }
+        return proposta.isRendaBaixa() ? reprovar(proposta) : proxima.avalia(proposta);
+    }
+
+    private PropostaCredito reprovar(PropostaCredito proposta) {
+        proposta.negar();
+        proposta.setDescricaoLimite("renda baixa");
+        return proposta;
     }
 
     @Override

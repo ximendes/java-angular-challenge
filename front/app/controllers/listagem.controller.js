@@ -3,8 +3,21 @@ angular.module('app.listagem', ['ngRoute']).controller('ListagemController', ['$
     const urlBase = 'http://localhost:8080/app/proposta';
 
     scope.inicializar = () => {
+        findAll();
+    };
+
+    function findAll(){
         http.get(urlBase + "/findAll").then((retorno) => scope.vm.propostas = retorno.data);
-        // scope.consultarTodos();
+    }
+
+    function consultarCpf(cpf){
+        http.get(urlBase + '/filter', {
+            params: {cpf: cpf}
+        }).then((retorno) => scope.vm.propostas = retorno.data);
+    }
+
+    scope.consultar = (cpf) => {
+        cpf ? consultarCpf(cpf) : findAll();
     };
 
     scope.avaliarProposta = (idProposta) => {
@@ -34,31 +47,14 @@ angular.module('app.listagem', ['ngRoute']).controller('ListagemController', ['$
                             </div>
                             <div class="modal-body">
                                 <p>Resultado Análise : ${retorno.statusProposta}</p>
-                                <p>Limite: ${retorno.descricaoStatus}</p>
+                                <p>Limite: ${retorno.descricaoLimite}</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
                             </div>
                         </div>
                     </div>
                 </div>`
     }
-
-    // scope.consultarCpf = (cpf) => {
-    //     http.get(urlBase + '/filtrar', {
-    //         params: {cpf: cpf}
-    //     }).then((retorno) => scope.vm.analises = retorno.data);
-    // };
-    //
-    // scope.consultar = (cpf) => {
-    //     console.log('cpf', cpf);
-    //     if (cpf) {
-    //         scope.consultarCpf(cpf);
-    //     } else {
-    //         scope.consultarTodos();
-    //     }
-    // };
-    //
-    // scope.toProposta = () => window.location.href = '/#!/cadastro';
 
 }]);

@@ -6,7 +6,6 @@ import com.app.app.repository.PropostaCreditoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +34,11 @@ public class PropostaCreditoService {
         PropostaCredito proposta = repository.findById(idProposta).orElse(null);
         PropostaCredito propostaAvaliada = new AvaliarLimiteCredito(proposta).avaliar();
         return this.save(propostaAvaliada.toDTO());
+    }
+
+    public List<PropostaCreditoDTO> filter(String cpf) {
+        String cpfSemPonto = cpf.replace(".", "");
+        return repository.findAllByCpfEquals(cpfSemPonto).stream().map(PropostaCredito::toDTO).collect(Collectors.toList());
     }
 }
 

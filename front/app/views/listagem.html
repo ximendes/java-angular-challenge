@@ -8,26 +8,26 @@
                 </div>
             </div>
             <div class="col-md-5" style="padding-top: 2em">
-                <button type="button" class="btn btn-outline-success" id="btPesquisar" ng-click="consultar(vm.cpf)">Pesquisar</button>
-                <button type="button" class="btn btn-outline-primary" id="btCadastrar" ng-click="toProposta()">Cadastrar Proposta</button>
+                <button type="button" class="btn btn-success" id="btPesquisar" ng-click="consultar(vm.cpf)">Pesquisar</button>
+                <button type="button" class="btn btn-primary" id="btCadastrar" ng-click="toProposta()">Cadastrar Proposta</button>
             </div>
         </div>
     </div>
     <div class="container-fluid">
         <div class="row">
             <div class="offset-1 col-md-10" style="padding-top: 2em">
-            <table class="table table-hover table-striped text-uppercase">
+            <table class="table table-hover table-striped">
                 <thead>
                     <tr>
-                        <th scope="col"><strong>NOME</strong></th>
-                        <th scope="col"><strong>IDADE</strong></th>
-                        <th scope="col"><strong>SEXO</strong></th>
-                        <th scope="col"><strong>ESTADO CIVIL</strong></th>
-                        <th scope="col"><strong>ESTADO</strong></th>
-                        <th scope="col"><strong>DEPENDENTES</strong></th>
-                        <th scope="col"><strong>RENDA R$</strong></th>
-                        <th scope="col"><strong>RESULTADO ANÁLISE</strong></th>
-                        <th scope="col"><strong>LIMITE</strong></th>
+                        <th scope="col"><strong>Nome</strong></th>
+                        <th scope="col"><strong>Idade</strong></th>
+                        <th scope="col"><strong>Sexo</strong></th>
+                        <th scope="col"><strong>Estado Civil</strong></th>
+                        <th scope="col"><strong>UF</strong></th>
+                        <th scope="col"><strong>Dependentes</strong></th>
+                        <th scope="col"><strong>Renda R$</strong></th>
+                        <th scope="col"><strong>Resultado Análise</strong></th>
+                        <th scope="col"><strong>Limite</strong></th>
                     </tr>
                 </thead>
 
@@ -40,9 +40,9 @@
                         <td class="center">{{proposta.estado}}</td>
                         <td class="center">{{proposta.dependentes}}</td>
                         <td class="center">{{proposta.renda | currency}}</td>
-                        <td class="center">{{proposta.statusProposta}}</td>
+                        <td class="center" align="center">{{proposta.statusProposta}}</td>
                         <td class="center">{{proposta.descricaoLimite}}</td>
-                        <td><button type="button" class="btn btn-default" id="btSolicitarAvaliacao" ng-click="avaliarProposta(proposta.id)">Avaliar</button></td>
+                        <td><button type="button" class="btn btn-success" ng-click="avaliarProposta(proposta.id)" ng-show="proposta.statusProposta == 'PENDENTE_APROVACAO'">Avaliar</button></td>
                     </tr>
                     <tr ng-show="!vm.propostas.length">
                         <td class="center text-center" colspan="9">Nenhuma análise cadastrada!</td>

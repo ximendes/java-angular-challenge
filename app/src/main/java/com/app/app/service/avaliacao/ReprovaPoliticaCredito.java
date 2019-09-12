@@ -10,13 +10,19 @@ public class ReprovaPoliticaCredito implements  Avaliacao{
 
     @Override
     public PropostaCredito avalia(PropostaCredito proposta) {
-        if(BigDecimal.valueOf(2000.00).compareTo(proposta.getRenda()) >= 0 && proposta.isDivorciadoOuViuva()){
-            proposta.negar();
-            proposta.setDescricaoLimite("reprovado pela política de crédito");
-            return proposta;
-        }else{
-            return proxima.avalia(proposta);
-        }
+        return rendaMenor2000(proposta) && proposta.isDivorciadoOuViuva() ?
+               reprovar(proposta) :
+               proxima.avalia(proposta);
+    }
+
+    private PropostaCredito reprovar(PropostaCredito proposta) {
+        proposta.negar();
+        proposta.setDescricaoLimite("reprovado pela política de crédito");
+        return proposta;
+    }
+
+    private boolean rendaMenor2000(PropostaCredito proposta) {
+        return BigDecimal.valueOf(2000.00).compareTo(proposta.getRenda()) >= 0;
     }
 
     @Override

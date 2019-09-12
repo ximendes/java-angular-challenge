@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Data
@@ -83,7 +84,8 @@ public class PropostaCredito implements Serializable {
     }
 
     public BigDecimal getQuaretaPorcentoRenda(){
-        return this.renda.multiply(BigDecimal.valueOf(40)).divide(BigDecimal.valueOf(100));
+        BigDecimal multiply = this.renda.multiply(BigDecimal.valueOf(40));
+        return this.renda.multiply(BigDecimal.valueOf(40)).divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
     }
 
     public boolean isRendaBaixa(){
