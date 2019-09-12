@@ -1,8 +1,9 @@
 # java-angular-challenge
 
 ### Pre Requisito
-Criar Base analise_credito e analise_credito_test
-Executar o script que está na pasta app/src/main/resource/sql/
+* Postgres
+* Criar as bases analise_credito e analise_credito_test 
+* Executar o script que está na pasta app/src/main/resource/sql/
 
 ## Deploy
 ```
