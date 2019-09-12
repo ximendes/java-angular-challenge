@@ -6,9 +6,9 @@ Executar o script que está na pasta app/src/main/resource/sql/
 
 ## Deploy
 ```
-cd eureka && ./mvnw
-cd zull && ./mvnw
-cd app && ./mvnw
+cd eureka && mvn spring-boot:run
+cd zull && mvn spring-boot:run
+cd app && mvn spring-boot:run
 cd front && nmp start
 ```
 
