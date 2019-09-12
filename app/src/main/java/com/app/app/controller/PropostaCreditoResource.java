@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +20,7 @@ public class PropostaCreditoResource {
 
     @PostMapping
     @ApiOperation(value = "Cadastrar uma proposta de crédito", response = PropostaCreditoDTO.class)
-    public ResponseEntity<PropostaCreditoDTO> save(@RequestBody PropostaCreditoDTO proposta){
+    public ResponseEntity<PropostaCreditoDTO> save(@Valid @RequestBody PropostaCreditoDTO proposta){
         proposta.pendenteAprovacao();
         PropostaCreditoDTO propostaSave = service.save(proposta);
         return ResponseEntity.ok(propostaSave);
@@ -26,7 +28,7 @@ public class PropostaCreditoResource {
 
     @GetMapping("/find/{id}")
     @ApiOperation(value = "Buscar proposta de crédito por id", response = PropostaCreditoDTO.class)
-    public ResponseEntity<PropostaCreditoDTO> save(@PathVariable Long id){
+    public ResponseEntity<PropostaCreditoDTO> findById(@PathVariable Long id){
         PropostaCreditoDTO order = service.findById(id);
         return ResponseEntity.ok(order);
     }
@@ -37,10 +39,16 @@ public class PropostaCreditoResource {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping("/filter")
+    @ApiOperation(value = "Filtro de Proposta por CPF", response = PropostaCreditoDTO.class)
+    public ResponseEntity<List<PropostaCreditoDTO>> filter(String cpf){
+        return ResponseEntity.ok(service.filter(cpf));
+    }
+
     @PostMapping("/avaliar")
     @ApiOperation(value = "Avaliar proposta de crédito")
     public ResponseEntity<PropostaCreditoDTO> avaliar(@RequestBody Long idProposta) {
-        PropostaCreditoDTO avaliar = service.avaliar(idProposta);
-        return ResponseEntity.ok(avaliar);
+        PropostaCreditoDTO propostaAvaliada = service.avaliar(idProposta);
+        return ResponseEntity.ok(propostaAvaliada);
     }
 }
