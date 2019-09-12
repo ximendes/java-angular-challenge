@@ -17,13 +17,15 @@ public class AvaliarLimiteCredito {
         Avaliacao aprovaAte1500 = new AprovaAte1500();
         Avaliacao aprovaAte2000 = new AprovaAte2000();
         Avaliacao aprovaSuperior2000 = new AprovaSuperior2000();
+        Avaliacao aprovacaoManual = new AprovacaoManual();
 
         rendaBaixa.setProximo(politicaCredito);
         politicaCredito.setProximo(aprovaAte500);
         aprovaAte500.setProximo(aprovaAte1000);
-//        aprovaAte1000.setProximo(aprovaAte1500);
-//        aprovaAte1500.setProximo(aprovaAte2000);
-//        aprovaAte2000.setProximo(aprovaSuperior2000);
+        aprovaAte1000.setProximo(aprovaAte1500);
+        aprovaAte1500.setProximo(aprovaAte2000);
+        aprovaAte2000.setProximo(aprovaSuperior2000);
+        aprovaSuperior2000.setProximo(aprovacaoManual);
 
         return rendaBaixa.avalia(proposta);
     }

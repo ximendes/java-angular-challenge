@@ -2,6 +2,7 @@ package com.app.app.service.avaliacao;
 
 import com.app.app.model.entity.PropostaCredito;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class AprovaAte1500 implements  Avaliacao{
 
@@ -9,28 +10,33 @@ public class AprovaAte1500 implements  Avaliacao{
 
     @Override
     public PropostaCredito avalia(PropostaCredito proposta) {
-        BigDecimal dependentes = this.dependentes(proposta.getDependentes());
-        BigDecimal valorCalculo = proposta.getQuaretaPorcentoRenda().divide(dependentes);
-        if(valorCalculadoEntre500E1000(valorCalculo)){
-            proposta.aprovar();
-            proposta.setDescricaoLimite("entre 500 - 1000");
-            return proposta;
-        }else{
-            return proxima.avalia(proposta);
-        }
+        return rendaSuperior5000 (proposta.getRenda()) && rendaDependentesEntre1000e2000(proposta) ?
+               aprovar(proposta) :
+               proxima.avalia(proposta);
     }
 
-    @Override
-    public void setProximo(Avaliacao avaliacao) {
-        this.proxima = avaliacao;
+    private PropostaCredito aprovar(PropostaCredito proposta) {
+        proposta.aprovar();
+        proposta.setDescricaoLimite("entre 1000 - 1500");
+        return proposta;
     }
-
 
     private BigDecimal dependentes(Integer dependentes){
         return BigDecimal.valueOf(dependentes != null && !dependentes.equals(0) ? dependentes : 1);
     }
 
-    private boolean valorCalculadoEntre500E1000(BigDecimal valorCalculo) {
-        return BigDecimal.valueOf(500).compareTo(valorCalculo) <= 0 || BigDecimal.valueOf(1000).compareTo(valorCalculo) >= 0;
+    private boolean rendaDependentesEntre1000e2000(PropostaCredito proposta){
+        BigDecimal dependentes = this.dependentes(proposta.getDependentes());
+        return (BigDecimal.valueOf(1000.00).compareTo(proposta.getRenda().divide(dependentes, RoundingMode.HALF_UP)) <= 0 &&
+                BigDecimal.valueOf(2000.00).compareTo(proposta.getRenda().divide(dependentes, RoundingMode.HALF_UP)) >= 0);
+    }
+
+    private boolean rendaSuperior5000(BigDecimal renda){
+        return BigDecimal.valueOf(5000.00).compareTo(renda) <= 0;
+    }
+
+    @Override
+    public void setProximo(Avaliacao avaliacao) {
+        this.proxima = avaliacao;
     }
 }
