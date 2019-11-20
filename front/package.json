@@ -5,7 +5,7 @@
   "description": "Aplicação para processo seletivo Zallpy",
   "license": "MIT",
   "dependencies": {
-    "angular": "^1.7.5",
+    "angular": "^1.7.9",
     "angular-input-masks": "^4.4.1",
     "angular-loader": "^1.7.5",
     "angular-route": "^1.7.5",
